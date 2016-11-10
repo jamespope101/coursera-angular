@@ -1,43 +1,62 @@
 (function() {
     'use strict';
 
-    angular.module('Module1App', [])
-        .controller('LunchCheckController', LunchCheckController);
+    angular.module('ShoppingListCheckOff', [])
+        .controller('ToBuyController', ToBuyController)
+        .controller('AlreadyBoughtController', AlreadyBoughtController)
+        .service('ShoppingListCheckOffService', ShoppingListCheckOffService);
 
-    LunchCheckController.$inject = ['$scope'];
+    ToBuyController.$inject = ['ShoppingListCheckOffService'];
 
-    function LunchCheckController($scope) {
-            $scope.message = "";
-            $scope.items = "";
-            $scope.color = "";
+    function ToBuyController(ShoppingListCheckOffService) {
+      var toBuyCtrl = this;
 
-            $scope.checkIfTooMuch = function() {
-                var numItems = calculateNumItems($scope.items);
-                if (numItems === 0) {
-                    $scope.message = "Please enter data first";
-                    $scope.color = "red";
-                } else if (numItems <= 3) {
-                    $scope.message = "Enjoy!";
-                    $scope.color = "green";
-                } else {
-                    $scope.message = "Too much!";
-                    $scope.color = "green";
-                }
-            };
+      toBuyCtrl.toBuyItems = ShoppingListCheckOffService.getToBuyItems();
 
-            function calculateNumItems(items) {
-                if (items === "") {
-                    return 0;
-                } else {
-                    var itemsArray = items.split(",");
-                    var nonEmptyItems = 0;
-                    for (var index=0; index < itemsArray.length; index++) {
-                        if (itemsArray[index].trim() !== "") {
-                            nonEmptyItems++;
-                        }
-                    }
-                    return nonEmptyItems;
-                }
-            }
+      toBuyCtrl.buyItem = function(itemIndex) {
+        ShoppingListCheckOffService.buyItem(itemIndex);
+      };
+
+      toBuyCtrl.itemsStillToBuy = function() {
+        return ShoppingListCheckOffService.getToBuyItems().length > 0;
+      }
         }
+
+        AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
+    function AlreadyBoughtController(ShoppingListCheckOffService) {
+      var boughtCtrl = this;
+
+      boughtCtrl.boughtItems = ShoppingListCheckOffService.getBoughtItems();
+
+      boughtCtrl.someItemsBought = function() {
+        return ShoppingListCheckOffService.getBoughtItems().length > 0;
+      }
+    }
+
+    function ShoppingListCheckOffService() {
+      var service = this;
+
+      var toBuyItems = [
+        {name: "Cookies", quantity: 10},
+        {name: "Apples", quantity: 5},
+        {name: "Bananas", quantity: 6},
+        {name: "Pints of Milk", quantity: 4},
+        {name: "Toilet Rolls", quantity: 9}
+    ];
+
+      var boughtItems = [];
+
+      service.getToBuyItems = function() {
+        return toBuyItems;
+      }
+
+      service.getBoughtItems = function() {
+        return boughtItems;
+      }
+
+      service.buyItem = function(itemIndex) {
+        var boughtItem = toBuyItems.pop(itemIndex);
+        boughtItems.push(boughtItem);
+      }
+    }
 })();
