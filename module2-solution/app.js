@@ -55,7 +55,8 @@
       }
 
       service.buyItem = function(itemIndex) {
-        var boughtItem = toBuyItems.pop(itemIndex);
+        var boughtItem = toBuyItems[itemIndex];
+        toBuyItems.splice(itemIndex, 1);
         boughtItems.push(boughtItem);
       }
     }
