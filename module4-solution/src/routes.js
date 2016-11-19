@@ -23,30 +23,31 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   .state('categories', {
     url: '/categories',
     templateUrl: 'src/templates/categories.template.html',
-    controller: 'CategoriesController as catsCtrl',
+    controller: 'CategoriesController as categoriesCtrl',
     resolve: {
       categories: ['MenuDataService', function (MenuDataService) {
-        return MenuDataService.getAllCategories();
+        return MenuDataService.getAllCategories().then(function(response) {
+          return response.data;
+        });
       }]
     }
   })
 
   // Items page
-  .state('categories.items', {
+  .state('items', {
     url: '/items/{category}',
     templateUrl: 'src/templates/items.template.html',
     controller: 'ItemsController as itemsCtrl',
-    params: {
-      category: null
-    },
     resolve: {
       items: ['$stateParams', 'MenuDataService',
-        function (stateParams, MenuDataService) {
-          return MenuDataService.getItems($stateParams.category);
+        function ($stateParams, MenuDataService) {
+          return MenuDataService.getItemsForCategory($stateParams.category).then(function(response) {
+            return response.data.menu_items;
+          });
       }]
     }
-  });
-
+  })
+  ;
 }
 
 })();
