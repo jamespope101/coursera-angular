@@ -5,7 +5,7 @@
     <legend>Sign Up</legend>
     <form name='regForm' novalidate>
 
-      <input type="text" name="firstname" placeholder="First Name"
+      <input style="color: #000000;" type="text" name="firstname" placeholder="First Name"
         ng-model="reg.user.firstname"
         required
         minlength="1"
@@ -19,7 +19,7 @@
         </span>
         <br>
 
-        <input type="text" name="lastname" placeholder="Last Name"
+        <input style="color: #000000;" type="text" name="lastname" placeholder="Last Name"
           ng-model="reg.user.lastname"
           required
           minlength="1"
@@ -33,7 +33,7 @@
           </span>
           <br>
 
-      <input type="email" name="email" placeholder="Email"
+      <input style="color: #000000;" type="email" name="email" placeholder="Email"
         ng-model="reg.user.email"
         required>
         <span ng-if="regForm.email.$invalid && regForm.email.$touched">
@@ -41,7 +41,7 @@
         </span>
         <br>
 
-      <input type="text" name="phone" placeholder="Phone ###-###-####"
+      <input style="color: #000000;" type="text" name="phone" placeholder="Phone ###-###-####"
         ng-model="reg.user.phone"
         pattern="(\d{3})-(\d{3})-(\d{4})">
         <span ng-if="regForm.phone.$invalid && regForm.phone.$touched">
@@ -49,11 +49,12 @@
         </span>
         <br>
 
-      <input type="text" name="favorite" placeholder="Your favorite dish?"
+      <input style="color: #000000;" type="text" name="favorite" placeholder="Your favorite dish?"
         ng-model="reg.user.favorite">
         <br>
 
       <button
+        style="color: #000000;"
         ng-disabled="regForm.$invalid"
         ng-click="reg.submit()">Submit</button>
         <div id="info" ng-if="reg.invalidFavorite">
