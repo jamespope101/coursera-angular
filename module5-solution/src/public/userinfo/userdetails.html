@@ -1,0 +1,16 @@
+<div id="info" ng-if="$ctrl.user !== null">
+  First Name: {{ $ctrl.user.firstname}} <br>
+  Last Name: {{ $ctrl.user.lastname}} <br>
+  Email: {{ $ctrl.user.email}} <br>
+  Phone: {{ $ctrl.user.phone}} <br>
+  <br>
+  <strong>Favorite Menu Item</strong><br>
+  <br>
+  <img class="img-responsive" width="250" height="150" ng-src="{{$ctrl.ApiPath}}/images/{{$ctrl.favorite.short_name}}.jpg" alt="{{$ctrl.menuItem.name}}">
+  <br>
+  Name: {{ $ctrl.favorite.name}} <br>
+  Description: {{ $ctrl.favorite.description}} <br>
+  Price (small): {{ $ctrl.favorite.price_small | currency }} <br>
+  Price (large): {{ $ctrl.favorite.price_large | currency }} <br>
+
+</div>

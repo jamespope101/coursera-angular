@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Your User Info</h1>
+  <br>
+  <div id="info" ng-if="userInfoCtrl.user === null">
+    Not Signed Up Yet. <a ui-sref="public.signup">Sign Up Now!</a>
+  </div>
+
+  <user-details ng-if="userInfoCtrl.user !== null"
+                user="userInfoCtrl.user"
+                favorite="userInfoCtrl.favorite">
+  </user-details>
+
+</div>
